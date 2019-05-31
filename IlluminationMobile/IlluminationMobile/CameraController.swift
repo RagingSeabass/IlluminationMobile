@@ -68,7 +68,7 @@ class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
         self.session?.addOutput(self.photoOutput!)
         self.session!.startRunning()
         
-        self.session?.sessionPreset = AVCaptureSession.Preset.photo;
+        //self.session?.sessionPreset = AVCaptureSession.Preset.photo;
     }
     
     func setupPreviewLayer(on previewLayer: UIView) {

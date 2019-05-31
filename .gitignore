@@ -5,6 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
+*.framework
 
 # Distribution / packaging
 .Python
@@ -107,3 +108,8 @@ venv.bak/
 train/
 val/
 test/
+
+IlluminationMobile/opencv2.framework/
+IlluminationMobile/opencv2.framework/Versions/A/opencv2
+IlluminationMobile/Pods
+IlluminationMobile/IlluminationMobileTests

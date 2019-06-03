@@ -32,8 +32,9 @@ class ViewController: UIViewController {
     var shutterTimeReference = CMTimeMake(value: 5, timescale: 10)
     // Input images
     var inputImages: [UIImage] = []
-    var isoList: [Float] = [200, 200, 200, 200]
+    var isoList: [Float] = [200, 200, 200, 200, 200]
     var shutterTimeList: [CMTime] = [CMTimeMake(value: 5, timescale: 80),
+                                     CMTimeMake(value: 5, timescale: 80),
                                      CMTimeMake(value: 5, timescale: 70),
                                      CMTimeMake(value: 5, timescale: 60),
                                      CMTimeMake(value: 5, timescale: 50)]
@@ -175,10 +176,10 @@ class ViewController: UIViewController {
     
         self.refImage = stackImage
         // Save reference image
-        /*try? PHPhotoLibrary.shared().performChangesAndWait {
+        try? PHPhotoLibrary.shared().performChangesAndWait {
             PHAssetChangeRequest.creationRequestForAsset(from: stackImage)
             PHAssetChangeRequest.creationRequestForAsset(from: self.imageListReference[0])
-        }*/
+        }
     }
     
     func captureInputImages() {
@@ -231,6 +232,8 @@ class ViewController: UIViewController {
     }
 
     func addReviewImages () {
+        
+        self.inputImages.removeFirst()
         self.reviewViewController.refImage = self.refImage
         self.reviewViewController.inputImages = self.inputImages
         self.reviewViewController.addReviewImages()

@@ -67,7 +67,7 @@ class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
         self.photoOutput!.setPreparedPhotoSettingsArray(photoSettings, completionHandler: nil)
         self.session?.addOutput(self.photoOutput!)
         self.session!.startRunning()
-        
+        // High res
         //self.session?.sessionPreset = AVCaptureSession.Preset.photo;
     }
     

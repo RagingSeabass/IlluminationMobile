@@ -214,18 +214,21 @@ class ReviewViewController: UIViewController {
         self.getPresignedURL(accessToken: self.accessToken, filename: filenameRemote) { (presignedUrl, statusCode) in
             switch statusCode {
             case 200:
-                self.uploadS3(presignedUrl: presignedUrl, image: image)
-                self.semaphore.signal()
+                self.uploadS3(presignedUrl: presignedUrl, image: image) { () in
+                    self.semaphore.signal()
+                    self.group.leave()
+                }
             default:
                 self.getAccessToken { (token) in
                     self.accessToken = token
                     self.getPresignedURL(accessToken: token, filename: filenameRemote) { (presignedUrl, statusCode) in
-                        self.uploadS3(presignedUrl: presignedUrl, image: image)
+                        self.uploadS3(presignedUrl: presignedUrl, image: image) { () in
+                            self.semaphore.signal()
+                            self.group.leave()
+                        }
                     }
-                    self.semaphore.signal()
                 }
             }
-            self.group.leave()
         }
         
     }
@@ -261,7 +264,7 @@ class ReviewViewController: UIViewController {
         }
     }
     
-    func uploadS3(presignedUrl: String, image: UIImage) {
+    func uploadS3(presignedUrl: String, image: UIImage, completion: @escaping ()->()) {
         let headers: HTTPHeaders = [
             "Content-Type": "application/octet-stream",
             "x-amz-acl": "private"
@@ -272,6 +275,7 @@ class ReviewViewController: UIViewController {
         AF.upload(imgData!, to: presignedUrl, method: .put, headers: headers)
             .responseData{ response in
                 print(response)
+                completion()
         }
     }
     

@@ -176,10 +176,10 @@ class ViewController: UIViewController {
     
         self.refImage = stackImage
         // Save reference image
-        try? PHPhotoLibrary.shared().performChangesAndWait {
+        /*try? PHPhotoLibrary.shared().performChangesAndWait {
             PHAssetChangeRequest.creationRequestForAsset(from: stackImage)
             PHAssetChangeRequest.creationRequestForAsset(from: self.imageListReference[0])
-        }
+        }*/
     }
     
     func captureInputImages() {
